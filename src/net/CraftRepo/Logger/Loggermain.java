@@ -64,7 +64,7 @@ public class Loggermain extends JavaPlugin
 		getServer().getPluginManager().registerEvent(Event.Type.INVENTORY_OPEN, inventoryListener, Priority.Normal, this);
 		getServer().getPluginManager().registerEvent(Event.Type.INVENTORY_TRANSACTION, inventoryListener, Priority.Normal, this);
 		/**
-		 * 
+		 * Entity Listener(s)
 		 */
 		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Normal, this);
 	}
