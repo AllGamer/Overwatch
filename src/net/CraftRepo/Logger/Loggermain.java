@@ -26,8 +26,9 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 public class Loggermain extends JavaPlugin 
 {
 	private final LoggerPlayerListener playerListener = new LoggerPlayerListener(this);
-    @SuppressWarnings("unused")
 	private final LoggerBlockListener blockListener = new LoggerBlockListener(this);
+    private final LoggerInventoryListener inventoryListener = new LoggerInventoryListener(this);
+    private final LoggerEntityListener entityListener = new LoggerEntityListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Logger]";
@@ -38,8 +39,34 @@ public class Loggermain extends JavaPlugin
 
 	public void registerListeners() 
 	{
+		/** 
+		 * Player Listeners
+		 */
 		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_LOGIN, playerListener, Priority.Normal, this);
 		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_KICK, playerListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_CHAT, playerListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Normal, this);
+		/**
+		 * Block Listeners
+		 */
+		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BURN, blockListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.LEAVES_DECAY, blockListener, Priority.Normal, this);
+		/**
+		 * Inventory Listeners
+		 */
+		getServer().getPluginManager().registerEvent(Event.Type.INVENTORY_CHANGE, inventoryListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.INVENTORY_OPEN, inventoryListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.INVENTORY_TRANSACTION, inventoryListener, Priority.Normal, this);
+		/**
+		 * 
+		 */
+		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Normal, this);
 	}
 	
 	public static String strip(String s) 
@@ -87,12 +114,12 @@ public class Loggermain extends JavaPlugin
     	configInit();
     	registerListeners();
     	setupPermissions();
-        log.info(logPrefix + " is enabled!");
+        log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
     }
     
     public void onDisable() 
     {
-        log.info(logPrefix + " is disabled!");
+        log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
     }
     
     public boolean isDebugging(final Player player) 
