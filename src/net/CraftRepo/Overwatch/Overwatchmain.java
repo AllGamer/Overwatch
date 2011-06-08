@@ -2,6 +2,7 @@ package net.CraftRepo.Overwatch;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
@@ -33,6 +34,7 @@ public class Overwatchmain extends JavaPlugin
     private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
     private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    public List<String> dbdata;
     public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Overwatch]";
 	public static PermissionHandler Permissions = null;
