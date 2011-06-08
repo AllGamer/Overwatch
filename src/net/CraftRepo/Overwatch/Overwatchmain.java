@@ -34,7 +34,7 @@ public class Overwatchmain extends JavaPlugin
     private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
     private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-    public List<String> dbdata;
+    public static List<String> dbdata;
     public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Overwatch]";
 	public static PermissionHandler Permissions = null;

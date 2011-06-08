@@ -1,5 +1,7 @@
 package net.CraftRepo.Overwatch;
 
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerAnimationEvent;
@@ -29,6 +31,7 @@ public class OverwatchPlayerListener extends PlayerListener
 {
 	
 	private final Overwatchmain plugin;
+	
 
     public OverwatchPlayerListener(Overwatchmain instance) 
     {
@@ -60,6 +63,8 @@ public class OverwatchPlayerListener extends PlayerListener
 	public void onPlayerChat(PlayerChatEvent event)
 	{
 		 String message = event.getMessage();
+		 String SQLStatement = message;
+		 Overwatchmain.dbdata.add(SQLStatement);
 		 // TODO escape message and put it in SQL form for bulk insert into chat table.
 	}
 
