@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,26 +9,26 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 
 /**
- * CraftRepo Logger for Bukkit
+ * CraftRepo Overwatch for Bukkit
  * @author AllGamer
  * 
  * Copyright 2011 AllGamer, LLC.
  * See LICENSE for licensing information.
  */
 
-public class LoggerConfiguration 
+public class OverwatchConfiguration 
 {
 
-	private Loggermain plugin;
+	private Overwatchmain plugin;
 	private File folder;
 	private final Logger log = Logger.getLogger("Minecraft");
 	private String logPrefix;
 
-	public LoggerConfiguration(File folder, Loggermain instance) 
+	public OverwatchConfiguration(File folder, Overwatchmain instance) 
 	{
 		this.folder = folder;
 		this.plugin = instance;
-		this.logPrefix = Loggermain.logPrefix;
+		this.logPrefix = Overwatchmain.logPrefix;
 	}
 
 	public void setupConfigs() 
@@ -44,7 +44,7 @@ public class LoggerConfiguration
 					FileWriter fstream = new FileWriter(config);
 					BufferedWriter out = new BufferedWriter(fstream);
 
-					out.write("#Logger Configuration\n");
+					out.write("#Overwatch Configuration\n");
 					
 					out.close();
 					fstream.close();

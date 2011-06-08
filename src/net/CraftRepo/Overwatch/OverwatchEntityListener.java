@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -8,14 +8,14 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
 
 /**
- * Logger Player listener
+ * Overwatch Player listener
  * @author CraftRepo
  */
-public class LoggerEntityListener extends BlockListener 
+public class OverwatchEntityListener extends BlockListener 
 {
-    private final Loggermain plugin;
+    private final Overwatchmain plugin;
 
-    public LoggerEntityListener(final Loggermain plugin) 
+    public OverwatchEntityListener(final Overwatchmain plugin) 
     {
         this.plugin = plugin;
     }

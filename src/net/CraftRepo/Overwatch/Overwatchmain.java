@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,22 +19,22 @@ import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 /**
- * Logger for Bukkit
+ * Overwatch for Bukkit
  *
  * @author CraftRepo
  */
-public class Loggermain extends JavaPlugin 
+public class Overwatchmain extends JavaPlugin 
 {
-	private final LoggerPlayerListener playerListener = new LoggerPlayerListener(this);
-	private final LoggerBlockListener blockListener = new LoggerBlockListener(this);
-    private final LoggerInventoryListener inventoryListener = new LoggerInventoryListener(this);
-    private final LoggerEntityListener entityListener = new LoggerEntityListener(this);
+	private final OverwatchPlayerListener playerListener = new OverwatchPlayerListener(this);
+	private final OverwatchBlockListener blockListener = new OverwatchBlockListener(this);
+    private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
+    private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     public final static Logger log = Logger.getLogger("Minecraft");
-	public static String logPrefix = "[Logger]";
+	public static String logPrefix = "[Overwatch]";
 	public static PermissionHandler Permissions = null;
 	@SuppressWarnings("unused")
-	private LoggerConfiguration confSetup;
+	private OverwatchConfiguration confSetup;
 	public static Configuration config;
 
 	public void registerListeners() 
@@ -85,7 +85,7 @@ public class Loggermain extends JavaPlugin
 	{
 		getDataFolder().mkdirs();
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
-		confSetup = new LoggerConfiguration(this.getDataFolder(), this);
+		confSetup = new OverwatchConfiguration(this.getDataFolder(), this);
 	}
 	
 	public void setupPermissions() 
@@ -93,12 +93,12 @@ public class Loggermain extends JavaPlugin
 		Plugin perms = this.getServer().getPluginManager().getPlugin("Permissions");
 		PluginDescriptionFile pdfFile = this.getDescription();
 
-		if (Loggermain.Permissions == null) 
+		if (Overwatchmain.Permissions == null) 
 		{
 			if (perms != null) 
 			{
 				this.getServer().getPluginManager().enablePlugin(perms);
-				Loggermain.Permissions = ((Permissions) perms).getHandler();
+				Overwatchmain.Permissions = ((Permissions) perms).getHandler();
 				log.info(logPrefix + " version " + pdfFile.getVersion() + " Permissions detected...");
 			}
 			else 

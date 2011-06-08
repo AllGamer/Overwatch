@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -12,11 +12,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Handle events for all Player related events
  * @author CraftRepo
  */
-public class LoggerPlayerListener extends PlayerListener 
+public class OverwatchPlayerListener extends PlayerListener 
 {
-    private final Loggermain plugin;
+    private final Overwatchmain plugin;
 
-    public LoggerPlayerListener(Loggermain instance) 
+    public OverwatchPlayerListener(Overwatchmain instance) 
     {
         plugin = instance;
     }

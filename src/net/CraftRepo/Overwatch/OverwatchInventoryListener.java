@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,11 +11,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Handle events for all Inventory related events
  * @author CraftRepo
  */
-public class LoggerInventoryListener extends PlayerListener 
+public class OverwatchInventoryListener extends PlayerListener 
 {
-    private final Loggermain plugin;
+    private final Overwatchmain plugin;
 
-    public LoggerInventoryListener(Loggermain instance) 
+    public OverwatchInventoryListener(Overwatchmain instance) 
     {
         plugin = instance;
     }
