@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import org.bukkit.Server;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 //import org.bukkit.Server;
 import org.bukkit.event.Event.Priority;
@@ -138,6 +141,22 @@ public class Overwatchmain extends JavaPlugin
     public void setDebugging(final Player player, final boolean value) 
     {
         debugees.put(player, value);
+    }
+
+    public boolean onCommand(CommandSender sender, Command commandArg, String commandLabel, String[] args)
+    {
+    	Player player = (Player) sender;
+		Server server = getServer();
+		String command = commandArg.getName().toLowerCase();
+		String[] split = args;
+		if (command.equalsIgnoreCase("ow"))
+		{
+			if (args[1].equals("rollback") & Overwatchmain.Permissions.has(player, "overwatch.rollback"))
+			{
+				// Add rollback code here. Call the thread from here or from a method.
+			}
+		}
+    	return false;
     }
 }
 
