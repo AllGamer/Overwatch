@@ -1,4 +1,4 @@
-package net.CraftRepo.Logger;
+package net.CraftRepo.Overwatch;
 
 import java.io.File;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
 
 /**
- * CraftRepo Logger for Bukkit
+ * CraftRepo Overwatch for Bukkit
  * @author AllGamer
  * 
  * Copyright 2011 AllGamer, LLC.
@@ -26,18 +26,18 @@ import org.bukkit.plugin.Plugin;
 @SuppressWarnings("unused")
 public class MySQLConnection 
 {
-	private Loggermain plugin;
+	private Overwatchmain plugin;
 	private File folder;
 	private final static Logger log = Logger.getLogger("Minecraft");
 	private static String logPrefix;
-	static Object mysqldb = Loggermain.config.getProperty("mysqldb");
-	static Object mysqluser = Loggermain.config.getProperty("mysqluser");
-	static Object mysqlpass = Loggermain.config.getProperty("mysqlpass");
+	static Object mysqldb = Overwatchmain.config.getProperty("mysqldb");
+	static Object mysqluser = Overwatchmain.config.getProperty("mysqluser");
+	static Object mysqlpass = Overwatchmain.config.getProperty("mysqlpass");
 
 	@SuppressWarnings("static-access")
 	public MySQLConnection()
 	{
-		this.logPrefix = Loggermain.logPrefix;
+		this.logPrefix = Overwatchmain.logPrefix;
 	}
 
 	private final static String PLAYER_TABLE     = "CREATE TABLE `player_bans` "
@@ -65,7 +65,7 @@ public class MySQLConnection
 	{
 		Logger log = Logger.getLogger("Minecraft");
 		log.info(logPrefix + " Loading MySQL");
-		Loggermain.config.load();
+		Overwatchmain.config.load();
 
 		if (!tableExists("player_bans")) 
 		{

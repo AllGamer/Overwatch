@@ -1,5 +1,5 @@
-name: Logger
+name: Overwatch
 
-main: net.CraftRepo.Logger
+main: net.CraftRepo.Overwatch
 
 version: 0.1
