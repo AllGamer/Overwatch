@@ -21,43 +21,50 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 public class OverwatchInventoryListener extends PlayerListener 
 {
     @Override
-	public void onInventoryOpen(PlayerInventoryEvent event) {
+	public void onInventoryOpen(PlayerInventoryEvent event) 
+    {
 		// TODO Auto-generated method stub
 		super.onInventoryOpen(event);
 	}
 
 	@Override
-	public void onItemHeldChange(PlayerItemHeldEvent event) {
+	public void onItemHeldChange(PlayerItemHeldEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onItemHeldChange(event);
 	}
 
 	@Override
-	public void onPlayerBucketEmpty(PlayerBucketEmptyEvent event) {
+	public void onPlayerBucketEmpty(PlayerBucketEmptyEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onPlayerBucketEmpty(event);
 	}
 
 	@Override
-	public void onPlayerBucketFill(PlayerBucketFillEvent event) {
+	public void onPlayerBucketFill(PlayerBucketFillEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onPlayerBucketFill(event);
 	}
 
 	@Override
-	public void onPlayerDropItem(PlayerDropItemEvent event) {
+	public void onPlayerDropItem(PlayerDropItemEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onPlayerDropItem(event);
 	}
 
 	@Override
-	public void onPlayerEggThrow(PlayerEggThrowEvent event) {
+	public void onPlayerEggThrow(PlayerEggThrowEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onPlayerEggThrow(event);
 	}
 
 	@Override
-	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+	public void onPlayerPickupItem(PlayerPickupItemEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onPlayerPickupItem(event);
 	}

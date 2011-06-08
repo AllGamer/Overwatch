@@ -22,73 +22,85 @@ import org.bukkit.event.painting.PaintingPlaceEvent;
 public class OverwatchEntityListener extends EntityListener 
 {
     @Override
-	public void onCreatureSpawn(CreatureSpawnEvent event) {
+	public void onCreatureSpawn(CreatureSpawnEvent event)
+    {
 		// TODO Auto-generated method stub
 		super.onCreatureSpawn(event);
 	}
 
 	@Override
-	public void onCreeperPower(CreeperPowerEvent event) {
+	public void onCreeperPower(CreeperPowerEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onCreeperPower(event);
 	}
 
 	@Override
-	public void onEntityCombust(EntityCombustEvent event) {
+	public void onEntityCombust(EntityCombustEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onEntityCombust(event);
 	}
 
 	@Override
-	public void onEntityDamage(EntityDamageEvent event) {
+	public void onEntityDamage(EntityDamageEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onEntityDamage(event);
 	}
 
 	@Override
-	public void onEntityDeath(EntityDeathEvent event) {
+	public void onEntityDeath(EntityDeathEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onEntityDeath(event);
 	}
 
 	@Override
-	public void onEntityExplode(EntityExplodeEvent event) {
+	public void onEntityExplode(EntityExplodeEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onEntityExplode(event);
 	}
 
 	@Override
-	public void onEntityInteract(EntityInteractEvent event) {
+	public void onEntityInteract(EntityInteractEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onEntityInteract(event);
 	}
 
 	@Override
-	public void onEntityTarget(EntityTargetEvent event) {
+	public void onEntityTarget(EntityTargetEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onEntityTarget(event);
 	}
 
 	@Override
-	public void onExplosionPrime(ExplosionPrimeEvent event) {
+	public void onExplosionPrime(ExplosionPrimeEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onExplosionPrime(event);
 	}
 
 	@Override
-	public void onPaintingBreak(PaintingBreakEvent event) {
+	public void onPaintingBreak(PaintingBreakEvent event) 
+	{
 		// TODO Auto-generated method stub
 		super.onPaintingBreak(event);
 	}
 
 	@Override
-	public void onPaintingPlace(PaintingPlaceEvent event) {
+	public void onPaintingPlace(PaintingPlaceEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onPaintingPlace(event);
 	}
 
 	@Override
-	public void onPigZap(PigZapEvent event) {
+	public void onPigZap(PigZapEvent event)
+	{
 		// TODO Auto-generated method stub
 		super.onPigZap(event);
 	}
