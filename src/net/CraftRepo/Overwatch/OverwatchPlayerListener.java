@@ -28,6 +28,13 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 public class OverwatchPlayerListener extends PlayerListener 
 {
 	
+	private final Overwatchmain plugin;
+
+    public OverwatchPlayerListener(Overwatchmain instance) 
+    {
+        plugin = instance;
+    }
+	
     @Override
 	public void onPlayerAnimation(PlayerAnimationEvent event) 
     {
@@ -52,8 +59,8 @@ public class OverwatchPlayerListener extends PlayerListener
 	@Override
 	public void onPlayerChat(PlayerChatEvent event)
 	{
-		// TODO Auto-generated method stub
-		super.onPlayerChat(event);
+		 String message = event.getMessage();
+		 // TODO escape message and put it in SQL form for bulk insert into chat table.
 	}
 
 	@Override
@@ -126,16 +133,10 @@ public class OverwatchPlayerListener extends PlayerListener
 		super.onPlayerToggleSneak(event);
 	}
 
-	private final Overwatchmain plugin;
-
-    public OverwatchPlayerListener(Overwatchmain instance) 
-    {
-        plugin = instance;
-    }
-
     public void onPlayerLogin(PlayerLoginEvent event)
 	{
-	// add crap for login logging here.
+    	// TODO Auto-generated method stub
+    	super.onPlayerLogin(event);
 	}
     //Insert Player related code here
 }
