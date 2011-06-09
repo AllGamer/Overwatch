@@ -26,7 +26,7 @@ public class OverwatchInventoryListener extends PlayerListener
 		// TODO Auto-generated method stub
 		super.onInventoryOpen(event);
 	}
-
+    
 	@Override
 	public void onItemHeldChange(PlayerItemHeldEvent event)
 	{

@@ -1,22 +1,20 @@
 package net.CraftRepo.Overwatch;
 
-import java.util.List;
-
 public class DBCache extends Thread 
 {
 	private Overwatchmain OverwatchPlugin = null;
-	private List<String> dbcache = null;
+	private String table;
 
-	public DBCache(Overwatchmain Overwatch, List<String> dbdata)
+	public DBCache(Overwatchmain Overwatch, String toTable)
 	{
 		this.OverwatchPlugin = Overwatch;
-		this.dbcache = dbdata;
+		this.table = toTable;
 	}
 	
 	public void run()
 	{
 		Overwatchmain.config.load();
-		MySQLConnection.sql("BULK INSERT INTO " + Overwatchmain.config.getProperty("mysqlTable") + Overwatchmain.dbdata.toString());
+		MySQLConnection.sql("BULK INSERT INTO " + table + Overwatchmain.dbdata.toString());
 		// Add Code to bulk insert the String List 'dbcache' into the database.
 	}
 }
