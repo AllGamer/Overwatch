@@ -40,59 +40,99 @@ public class MySQLConnection
 		this.logPrefix = Overwatchmain.logPrefix;
 	}
 
-	private final static String PLAYER_TABLE     = "CREATE TABLE `player_bans` "
+	private final static String CHAT_TABLE     = "CREATE TABLE `ow_chat` "
 		+ "("
-		+ "`id`       	INT PRIMARY KEY, "
-		+ "`name`     	VARCHAR(32) NOT NULL DEFAULT 'Player', "
-		+ ")";
+		+ "`id`        int not null primary key auto_increment, "
+		+ "`user_id`    int, "
+    	+ "`msg_from`    int, "
+    	+ "`msg_to`    int, "
+    	+ "`msg_content    tinytext"
+    	+ ");";
 
-	private final static String IP_TABLE    = "CREATE TABLE `ip_bans` "
+	private final static String LOGIN_TABLE    = "CREATE TABLE `ow_login_logout` "
 		+ "("
-		+ "`id`       	INT PRIMARY KEY, "
-		+ "'ip1'        INT NOT NULL DEFAULT '0', "
-		+ "'ip2'        INT NOT NULL DEFAULT '0', "
-		+ "'ip3'        INT NOT NULL DEFAULT '0', "
-		+ "'ip4'        INT NOT NULL DEFAULT '0', "
-		+ ")";
+		+ "`user_id`    int, "
+		+ "`action`    tinyint, -- 1 == login, 0 == logout, "
+		+ "`ip_addr    int(10) unsigned, -- INET_ATON/INET_NTOA format,"
+		+ ");";
 
-	private final static String EXEMPT_TABLE = "CREATE TABLE `exempt` "
+	private final static String COMMAND_TABLE = "CREATE TABLE `ow_cmd` "
 		+ "("
-		+ "`id`         INT PRIMARY KEY, "
-		+ "`name`     	VARCHAR(32) NOT NULL DEFAULT 'Player', "
-		+ ")";
+		+ "`id` int not null primary key auto_increment, "
+		+ "`user_id` int, "
+		+ "`cmd_run` tinytext, "
+		+ "`cmd_success` tinyint -- 0== fail/unknown cmd, 1 = valid command, "
+		+ ");";
 
+	private final static String BLOCK_TABLE = "CREATE TABLE `ow_block` "
+		+ "("
+		+ "`item_id`    int, "
+		+ "`user_id`    int, -- 0 == Environment, "
+		+ "`action`    ENUM('placed', 'broke', 'flowed', 'dropped') -- These map internally to 0,1,2,3, "
+		+ "`x`        int unsigned, "
+		+ "`y`        int unsigned, "
+		+ "`z`        int unsigned, "
+		+ "INDEX x_y_z_idx(`x`, `y`, `z`), "
+		+ ");";
+	
+	private final static String PLAYER_TABLE = "CREATE TABLE `ow_players` "
+		+ "("
+		+ "`id` int not null primary key auto_increment, "
+		+ "`player` varchar(16), "
+		+ ");";
+	
 	public static boolean initialize() 
 	{
 		Logger log = Logger.getLogger("Minecraft");
 		log.info(logPrefix + " Loading MySQL");
 		Overwatchmain.config.load();
 
-		if (!tableExists("player_bans")) 
+		if (!tableExists("ow_chat")) 
 		{
-			log.info(logPrefix + " 'player_bans' table doesn't exist, creating...");
+			log.info(logPrefix + " 'ow_chat' table doesn't exist, creating...");
+			if (!createTable(CHAT_TABLE)) 
+			{
+				log.info(logPrefix + " Cannot make table 'ow_chat', disabling plugin.");
+				return false;
+			}
+		}
+
+		if (!tableExists("ow_login_logout")) 
+		{
+			log.info(logPrefix + " 'ow_login_logout' table doesn't exist, creating...");
+			if (!createTable(LOGIN_TABLE)) 
+			{
+				log.info(logPrefix + " Cannot make table 'ow_login_logout', disabling plugin.");
+				return false;
+			}
+		}
+
+		if (!tableExists("ow_cmd")) 
+		{
+			log.info(logPrefix + " 'ow_cmd' table doesn't exist, creating now.");
+			if (!createTable(COMMAND_TABLE)) 
+			{
+				log.info(logPrefix + " Cannot make table 'ow_cmd', disabling plugin.");
+				return false;
+			}
+		}
+		
+		if (!tableExists("ow_block")) 
+		{
+			log.info(logPrefix + " 'ow_block' table doesn't exist, creating now.");
+			if (!createTable(BLOCK_TABLE)) 
+			{
+				log.info(logPrefix + " Cannot make table 'ow_block', disabling plugin.");
+				return false;
+			}
+		}
+		
+		if (!tableExists("ow_players")) 
+		{
+			log.info(logPrefix + " 'ow_players' table doesn't exist, creating now.");
 			if (!createTable(PLAYER_TABLE)) 
 			{
-				log.info(logPrefix + " Cannot make table 'player_bans', disabling plugin.");
-				return false;
-			}
-		}
-
-		if (!tableExists("ip_bans")) 
-		{
-			log.info(logPrefix + " 'ip_bans' table doesn't exist, creating...");
-			if (!createTable(IP_TABLE)) 
-			{
-				log.info(logPrefix + " Cannot make table 'ip_bans', disabling plugin.");
-				return false;
-			}
-		}
-
-		if (!tableExists("exempt")) 
-		{
-			log.info(logPrefix + " 'exempt' table doesn't exist, creating now.");
-			if (!createTable(EXEMPT_TABLE)) 
-			{
-				log.info(logPrefix + " Cannot make table 'exempt', disabling plugin.");
+				log.info(logPrefix + " Cannot make table 'ow_players', disabling plugin.");
 				return false;
 			}
 		}
