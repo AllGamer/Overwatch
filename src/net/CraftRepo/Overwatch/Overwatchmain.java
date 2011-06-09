@@ -34,6 +34,7 @@ public class Overwatchmain extends JavaPlugin
     private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
     private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    public static HashMap<Integer, String> blocks = new HashMap<Integer, String>();
     public static List<String> dbdata;
     public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Overwatch]";
@@ -43,6 +44,97 @@ public class Overwatchmain extends JavaPlugin
 	private OverwatchConfiguration confSetup;
 	public static Configuration config;
 
+	public void populateItemMap()
+	{
+		blocks.put(1, "stone");
+		blocks.put(2, "grass");
+		blocks.put(3, "dirt");
+		blocks.put(4, "cobblestone");
+		blocks.put(5, "wood");
+		blocks.put(6, "sapling");
+		blocks.put(7, "bedrock");
+		blocks.put(8, "movingwater");
+		blocks.put(9, "sourcewater");
+		blocks.put(10, "movinglava");
+		blocks.put(11, "sourcelava");
+		blocks.put(12, "sand");
+		blocks.put(13, "gravel");
+		blocks.put(14, "goldore");
+		blocks.put(15, "ironore");
+		blocks.put(16, "coalore");
+		blocks.put(17, "log");
+		blocks.put(18, "leaf");
+		blocks.put(19, "sponge");
+		blocks.put(20, "glass");
+		blocks.put(21, "lapislazuliore");
+		blocks.put(22, "lapislazuliblock");
+		blocks.put(23, "dispenser");
+		blocks.put(24, "sandstone");
+		blocks.put(25, "noteblock");
+		blocks.put(26, "bed");
+		blocks.put(27, "booster rail");
+		blocks.put(28, "detector rail");
+		blocks.put(30, "web");
+		blocks.put(35, "cloth");
+		blocks.put(37, "yellowflower");
+		blocks.put(38, "rose");
+		blocks.put(39, "brown mushroom");
+		blocks.put(40, "red mushroom");
+		blocks.put(41, "gold");
+		blocks.put(42, "iron");
+		blocks.put(43, "doublestep");
+		blocks.put(44, "step");
+		blocks.put(45, "brick");
+		blocks.put(46, "tnt");
+		blocks.put(47, "bookshelf");
+		blocks.put(48, "mossy cobble");
+		blocks.put(49, "obsidian");
+		blocks.put(50, "torch");
+		blocks.put(51, "fire");
+		blocks.put(52, "mob spawner");
+		blocks.put(53, "wood stairs");
+		blocks.put(54, "chest");
+		blocks.put(55, "redstone wire");
+		blocks.put(56, "diamond block");
+		blocks.put(58, "workbench");
+		blocks.put(59, "crop");
+		blocks.put(60, "farmland");
+		blocks.put(61, "furnace");
+		blocks.put(62, "lit furnace");
+		blocks.put(63, "sign post");
+		blocks.put(63, "sign block");
+		blocks.put(64, "wood door");
+		blocks.put(65, "ladder");
+		blocks.put(66, "track");
+		blocks.put(67, "cobblestone stairs");
+		blocks.put(68, "wall sign");
+		blocks.put(69, "lever");
+		blocks.put(70, "stone pressureplate");
+		blocks.put(71, "iron door");
+		blocks.put(72, "wooden pressureplate");
+		blocks.put(73, "redstone ore");
+		blocks.put(75, "redstone torch off");
+		blocks.put(76, "redstone torch");
+		blocks.put(77, "button");
+		blocks.put(78, "snow");
+		blocks.put(79, "ice");
+		blocks.put(80, "snowblock");
+		blocks.put(81, "cactus");
+		blocks.put(82, "clay");
+		blocks.put(83, "sugarcane");
+		blocks.put(84, "jukebox");
+		blocks.put(85, "fence");
+		blocks.put(86, "pumpkin");
+		blocks.put(87, "netherrack");
+		blocks.put(88, "soulsand");
+		blocks.put(89, "glowstone");
+		blocks.put(90, "portal");
+		blocks.put(91, "jack-o-lantern");
+		blocks.put(92, "cake");
+		blocks.put(93, "redstone repeater (off)");
+		blocks.put(94, "redstone repeater");
+	}
+	
 	public void registerListeners() 
 	{
 		/** 
@@ -129,6 +221,7 @@ public class Overwatchmain extends JavaPlugin
     	{
     		// DISCUSS: H2 integration? or sqlite? H2 would be logical.
     	}
+    	populateItemMap();
         log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
     }
     
