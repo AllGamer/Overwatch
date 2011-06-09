@@ -16,6 +16,7 @@ public class DBCache extends Thread
 	public void run()
 	{
 		Overwatchmain.config.load();
+		MySQLConnection.sql("BULK INSERT INTO " + Overwatchmain.config.getProperty("mysqlTable") + Overwatchmain.dbdata.toString());
 		// Add Code to bulk insert the String List 'dbcache' into the database.
 	}
 }

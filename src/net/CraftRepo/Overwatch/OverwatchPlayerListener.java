@@ -29,9 +29,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
  */
 public class OverwatchPlayerListener extends PlayerListener 
 {
-	
 	private final Overwatchmain plugin;
-	
 
     public OverwatchPlayerListener(Overwatchmain instance) 
     {
@@ -59,20 +57,20 @@ public class OverwatchPlayerListener extends PlayerListener
 		super.onPlayerBedLeave(event);
 	}
 
-	@Override
 	public void onPlayerChat(PlayerChatEvent event)
 	{
 		 String message = event.getMessage();
 		 String SQLStatement = message;
 		 Overwatchmain.dbdata.add(SQLStatement);
-		 // TODO escape message and put it in SQL form for bulk insert into chat table.
+		 // TODO put it in SQL form for bulk insert into chat table.
 	}
 
-	@Override
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
 	{
-		// TODO Auto-generated method stub
-		super.onPlayerCommandPreprocess(event);
+		String message = event.getMessage();
+		String SQLStatement = message;
+		Overwatchmain.dbdata.add(SQLStatement);
+		// TODO put it in SQL form for bulk insert into chat table.
 	}
 
 	@Override

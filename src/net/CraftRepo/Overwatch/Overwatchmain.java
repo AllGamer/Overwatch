@@ -38,6 +38,7 @@ public class Overwatchmain extends JavaPlugin
     public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Overwatch]";
 	public static PermissionHandler Permissions = null;
+	public boolean mysqlconnection = true;
 	@SuppressWarnings("unused")
 	private OverwatchConfiguration confSetup;
 	public static Configuration config;
@@ -120,6 +121,14 @@ public class Overwatchmain extends JavaPlugin
     	configInit();
     	registerListeners();
     	setupPermissions();
+    	if (mysqlconnection)
+    	{
+    		MySQLConnection.initialize();
+    	}
+    	else
+    	{
+    		// DISCUSS: H2 integration? or sqlite? H2 would be logical.
+    	}
         log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
     }
     

@@ -61,7 +61,7 @@ public class MySQLConnection
 		+ "`name`     	VARCHAR(32) NOT NULL DEFAULT 'Player', "
 		+ ")";
 
-	public boolean initialize() 
+	public static boolean initialize() 
 	{
 		Logger log = Logger.getLogger("Minecraft");
 		log.info(logPrefix + " Loading MySQL");
