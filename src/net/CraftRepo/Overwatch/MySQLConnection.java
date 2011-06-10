@@ -67,6 +67,7 @@ public class MySQLConnection
 	private final static String BLOCK_TABLE = "CREATE TABLE `ow_block` "
 		+ "("
 		+ "`item_id`    int, "
+		+ "`data`		tinyint, "
 		+ "`user_id`    int, -- 0 == Environment, "
 		+ "`action`    ENUM('placed', 'broke', 'flowed', 'dropped') -- These map internally to 0,1,2,3, "
 		+ "`x`        int unsigned, "

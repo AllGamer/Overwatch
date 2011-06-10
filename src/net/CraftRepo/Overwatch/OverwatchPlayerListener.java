@@ -61,7 +61,7 @@ public class OverwatchPlayerListener extends PlayerListener
 	{
 		 String message = event.getMessage();
 		 String SQLStatement = message;
-		 Overwatchmain.dbdata.add(SQLStatement);
+		 Overwatchmain.dbdataChat.add(SQLStatement);
 		 // TODO put it in SQL form for bulk insert into chat table.
 	}
 
@@ -69,7 +69,7 @@ public class OverwatchPlayerListener extends PlayerListener
 	{
 		String message = event.getMessage();
 		String SQLStatement = message;
-		Overwatchmain.dbdata.add(SQLStatement);
+		Overwatchmain.dbdataCmd.add(SQLStatement);
 		// TODO put it in SQL form for bulk insert into chat table.
 	}
 
