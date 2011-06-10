@@ -266,6 +266,17 @@ public class Overwatchmain extends JavaPlugin
 
 	public void onDisable() 
 	{
+		if (conn != null)
+		{
+			try 
+			{
+				conn.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 		log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
 	}
 
