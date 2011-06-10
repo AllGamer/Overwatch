@@ -30,9 +30,7 @@ public class MySQLConnection
 	private File folder;
 	private final static Logger log = Logger.getLogger("Minecraft");
 	private static String logPrefix;
-	static Object mysqldb = Overwatchmain.config.getProperty("mysqldb");
-	static Object mysqluser = Overwatchmain.config.getProperty("mysqluser");
-	static Object mysqlpass = Overwatchmain.config.getProperty("mysqlpass");
+	private static Connection connect = Overwatchmain.conn;
 
 	@SuppressWarnings("static-access")
 	public MySQLConnection()
@@ -139,15 +137,12 @@ public class MySQLConnection
 		return true;
 	}
 
-	public static boolean sql(String sql) 
+	public static boolean sqlUpdate(String sql) 
 	{
-		Connection conn = null;
 		Statement st = null;
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(mysqldb.toString(),mysqluser.toString(),mysqlpass.toString());
-			st = conn.createStatement();
+			st = connect.createStatement();
 			st.executeUpdate(sql);
 			return true;
 		}
@@ -155,16 +150,10 @@ public class MySQLConnection
 		{
 			return false;
 		}
-		catch (ClassNotFoundException e) 
-		{
-			log.info(logPrefix + " Error loading com.mysql.jdbc.Driver");
-			return false;
-		}
 		finally 
 		{
 			try 
 			{
-				if (conn != null) conn.close();
 				if (st != null) st.close();
 			}
 			catch (SQLException e) 
@@ -174,16 +163,41 @@ public class MySQLConnection
 			}
 		}
 	}
+	
+	public static ResultSet sqlGet(String sql) 
+	{
+
+		Statement st = null;
+		try 
+		{
+			st = connect.createStatement();
+			st.execute(sql);
+			return st.getResultSet();
+		}
+		catch (SQLException e) 
+		{
+			return null;
+		}
+		finally 
+		{
+			try 
+			{
+				if (st != null) st.close();
+			}
+			catch (SQLException e) 
+			{
+				log.info(logPrefix + " Could not close DB Connections.");
+				return null;
+			}
+		}
+	}
 
 	private static boolean tableExists(String table) 
 	{
-		Connection conn = null;
 		ResultSet rs = null;
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(mysqldb.toString(),mysqluser.toString(),mysqlpass.toString());
-			DatabaseMetaData dbm = conn.getMetaData();
+			DatabaseMetaData dbm = connect.getMetaData();
 			rs = dbm.getTables(null, null, table, null);
 			if (!rs.next()) return false;
 			return true;
@@ -193,17 +207,11 @@ public class MySQLConnection
 			log.info(logPrefix + " Table Check Exception");
 			return false;
 		}
-		catch (ClassNotFoundException e) 
-		{
-			log.info(logPrefix + " Error loading com.mysql.jdbc.Driver");
-			return false;
-		}
 		finally 
 		{
 			try 
 			{
 				if (rs != null) rs.close();
-				if (conn != null) conn.close();
 			}
 			catch (SQLException ex) 
 			{
@@ -214,13 +222,10 @@ public class MySQLConnection
 
 	private static boolean createTable(String sql) 
 	{
-		Connection conn = null;
 		Statement st = null;
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(mysqldb.toString(),mysqluser.toString(),mysqlpass.toString());
-			st = conn.createStatement();
+			st = connect.createStatement();
 			st.executeUpdate(sql);
 			return true;
 		}
@@ -229,16 +234,10 @@ public class MySQLConnection
 			log.info(logPrefix + " Create Table Exception");
 			return false;
 		}
-		catch (ClassNotFoundException e) 
-		{
-			log.info(logPrefix + " Error loading com.mysql.jdbc.Driver");
-			return false;
-		}
 		finally 
 		{
 			try 
 			{
-				if (conn != null) conn.close();
 				if (st != null) st.close();
 			}
 			catch (SQLException e) 

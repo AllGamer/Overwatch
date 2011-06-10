@@ -1,11 +1,13 @@
 package net.CraftRepo.Overwatch;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,18 +33,49 @@ public class Overwatchmain extends JavaPlugin
 {
 	private final OverwatchPlayerListener playerListener = new OverwatchPlayerListener(this);
 	private final OverwatchBlockListener blockListener = new OverwatchBlockListener(this);
-    private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
-    private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
-    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
-    public static HashMap<Integer, String> blocks = new HashMap<Integer, String>();
-    public static List<String> dbdata;
-    public final static Logger log = Logger.getLogger("Minecraft");
+	private final OverwatchInventoryListener inventoryListener = new OverwatchInventoryListener(this);
+	private final OverwatchEntityListener entityListener = new OverwatchEntityListener(this);
+	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+	public static HashMap<Integer, String> blocks = new HashMap<Integer, String>();
+	public static List<String> dbdata;
+	public final static Logger log = Logger.getLogger("Minecraft");
 	public static String logPrefix = "[Overwatch]";
 	public static PermissionHandler Permissions = null;
 	public boolean mysqlconnection = true;
 	@SuppressWarnings("unused")
 	private OverwatchConfiguration confSetup;
 	public static Configuration config;
+	static Object mysqldb = Overwatchmain.config.getProperty("mysqldb");
+	static Object mysqluser = Overwatchmain.config.getProperty("mysqluser");
+	static Object mysqlpass = Overwatchmain.config.getProperty("mysqlpass");
+	public static Connection conn = null;
+
+	public void openSQLConnection()
+	{
+		if (conn == null)
+		{
+			try
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection(mysqldb.toString(),mysqluser.toString(),mysqlpass.toString());
+				if (conn == null)
+				{
+					openSQLConnection();
+				}
+			}
+			catch (ClassNotFoundException e) 
+			{
+				log.severe(logPrefix + " Couldn't locate the MySQL Driver! Disabling!");
+				e.printStackTrace();
+				this.getServer().getPluginManager().disablePlugin(this);
+			} 
+			catch (SQLException e) 
+			{
+				log.severe(logPrefix + " An error occured during a SQL transaction!");
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void populateItemMap()
 	{
@@ -134,7 +167,7 @@ public class Overwatchmain extends JavaPlugin
 		blocks.put(93, "redstone repeater (off)");
 		blocks.put(94, "redstone repeater");
 	}
-	
+
 	public void registerListeners() 
 	{
 		/** 
@@ -167,7 +200,8 @@ public class Overwatchmain extends JavaPlugin
 		 */
 		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Monitor, this);
 	}
-	
+
+
 	public static String strip(String s) 
 	{
 		String good = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:";
@@ -179,14 +213,16 @@ public class Overwatchmain extends JavaPlugin
 		}
 		return result;
 	}
-	
+
+
 	public void configInit()
 	{
 		getDataFolder().mkdirs();
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
 		confSetup = new OverwatchConfiguration(this.getDataFolder(), this);
 	}
-	
+
+
 	public void setupPermissions() 
 	{
 		Plugin perms = this.getServer().getPluginManager().getPlugin("Permissions");
@@ -207,60 +243,68 @@ public class Overwatchmain extends JavaPlugin
 			}
 		}
 	}
-	
-    public void onEnable() 
-    {
-    	configInit();
-    	registerListeners();
-    	setupPermissions();
-    	if (mysqlconnection)
-    	{
-    		MySQLConnection.initialize();
-    	}
-    	else
-    	{
-    		// DISCUSS: H2 integration? or sqlite? H2 would be logical.
-    	}
-    	populateItemMap();
-        log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
-    }
-    
-    public void onDisable() 
-    {
-        log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
-    }
-    
-    public boolean isDebugging(final Player player) 
-    {
-        if (debugees.containsKey(player)) 
-        {
-            return debugees.get(player);
-        }
-        else 
-        {
-            return false;
-        }
-    }
 
-    public void setDebugging(final Player player, final boolean value) 
-    {
-        debugees.put(player, value);
-    }
 
-    public boolean onCommand(CommandSender sender, Command commandArg, String commandLabel, String[] args)
-    {
-    	Player player = (Player) sender;
-		Server server = getServer();
+	public void onEnable() 
+	{
+		configInit();
+		registerListeners();
+		setupPermissions();
+		openSQLConnection();
+		if (mysqlconnection & conn != null)
+		{
+			MySQLConnection.initialize();
+		}
+		else
+		{
+			// DISCUSS: H2 integration? or sqlite? H2 would be logical.
+		}
+		populateItemMap();
+		log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
+	}
+
+
+	public void onDisable() 
+	{
+		log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
+	}
+
+
+	public boolean isDebugging(final Player player) 
+	{
+		if (debugees.containsKey(player)) 
+		{
+			return debugees.get(player);
+		}
+		else 
+		{
+			return false;
+		}
+	}
+
+
+	public void setDebugging(final Player player, final boolean value) 
+	{
+		debugees.put(player, value);
+	}
+
+
+	public boolean onCommand(CommandSender sender, Command commandArg, String commandLabel, String[] args)
+	{
+		Player player = (Player) sender;
 		String command = commandArg.getName().toLowerCase();
-		String[] split = args;
 		if (command.equalsIgnoreCase("ow"))
 		{
 			if (args[1].equals("rollback") & Overwatchmain.Permissions.has(player, "overwatch.rollback"))
 			{
 				// Add rollback code here. Call the thread from here or from a method.
 			}
+			else if (args[1].equals("area") & Overwatchmain.Permissions.has(player, "overwatch.check.area"))
+			{
+				// Add code to get nearby blocks and get the history on the location. Should be based on a radius.
+			}
 		}
-    	return false;
-    }
+		return false;
+	}
 }
 
