@@ -201,7 +201,6 @@ public class Overwatchmain extends JavaPlugin
 		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Monitor, this);
 	}
 
-
 	public static String strip(String s) 
 	{
 		String good = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:";
@@ -214,14 +213,12 @@ public class Overwatchmain extends JavaPlugin
 		return result;
 	}
 
-
 	public void configInit()
 	{
 		getDataFolder().mkdirs();
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
 		confSetup = new OverwatchConfiguration(this.getDataFolder(), this);
 	}
-
 
 	public void setupPermissions() 
 	{
@@ -244,7 +241,12 @@ public class Overwatchmain extends JavaPlugin
 		}
 	}
 
-
+	public void startThread()
+	{
+		DBCache thread = new DBCache(this);
+		thread.id=getServer().getScheduler().scheduleAsyncRepeatingTask(this, thread, 60L, 100L);
+	}
+	
 	public void onEnable() 
 	{
 		configInit();
@@ -259,10 +261,10 @@ public class Overwatchmain extends JavaPlugin
 		{
 			// DISCUSS: H2 integration? or sqlite? H2 would be logical.
 		}
+		startThread();
 		populateItemMap();
 		log.info(logPrefix + " version " + getDescription().getVersion() + " is enabled!");
 	}
-
 
 	public void onDisable() 
 	{
@@ -280,7 +282,6 @@ public class Overwatchmain extends JavaPlugin
 		log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
 	}
 
-
 	public boolean isDebugging(final Player player) 
 	{
 		if (debugees.containsKey(player)) 
@@ -293,12 +294,10 @@ public class Overwatchmain extends JavaPlugin
 		}
 	}
 
-
 	public void setDebugging(final Player player, final boolean value) 
 	{
 		debugees.put(player, value);
 	}
-
 
 	public boolean onCommand(CommandSender sender, Command commandArg, String commandLabel, String[] args)
 	{

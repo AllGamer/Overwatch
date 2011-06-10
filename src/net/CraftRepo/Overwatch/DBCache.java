@@ -2,39 +2,55 @@ package net.CraftRepo.Overwatch;
 
 import java.sql.SQLException;
 
-public class DBCache extends Thread 
+public class DBCache implements Runnable 
 {
 	private Overwatchmain OverwatchPlugin = null;
+	public Integer id;
 
 	public DBCache(Overwatchmain Overwatch)
 	{
 		this.OverwatchPlugin = Overwatch;
 	}
-	
+
 	public void run()
 	{
 		Overwatchmain.config.load();
 		try 
 		{
-			for (String s : Overwatchmain.dbdataBlock)
+			if (Overwatchmain.dbdataBlock != null)
 			{
-				MySQLConnection.sqlUpdate(s);
+				for (String s : Overwatchmain.dbdataBlock)
+				{
+					MySQLConnection.sqlUpdate(s);
+				}
 			}
-			for (String s : Overwatchmain.dbdataChat)
+			if (Overwatchmain.dbdataBlock != null)
 			{
-				MySQLConnection.sqlUpdate(s);
+				for (String s : Overwatchmain.dbdataChat)
+				{
+					MySQLConnection.sqlUpdate(s);
+				}
 			}
-			for (String s : Overwatchmain.dbdataCmd)
+			if (Overwatchmain.dbdataBlock != null)
 			{
-				MySQLConnection.sqlUpdate(s);
+				for (String s : Overwatchmain.dbdataCmd)
+				{
+					MySQLConnection.sqlUpdate(s);
+				}
 			}
-			for (String s : Overwatchmain.dbdataLogin)
+			if (Overwatchmain.dbdataBlock != null)
 			{
-				MySQLConnection.sqlUpdate(s);
+				for (String s : Overwatchmain.dbdataLogin)
+				{
+					MySQLConnection.sqlUpdate(s);
+				}
 			}
-			for (String s : Overwatchmain.dbdataPlayer)
+			if (Overwatchmain.dbdataBlock != null)
 			{
-				MySQLConnection.sqlUpdate(s);
+				for (String s : Overwatchmain.dbdataPlayer)
+				{
+					MySQLConnection.sqlUpdate(s);
+				}
 			}
 			MySQLConnection.st.close();
 		} 
