@@ -45,9 +45,9 @@ public class Overwatchmain extends JavaPlugin
 	@SuppressWarnings("unused")
 	private OverwatchConfiguration confSetup;
 	public static Configuration config;
-	static Object mysqldb = Overwatchmain.config.getProperty("mysqldb");
-	static Object mysqluser = Overwatchmain.config.getProperty("mysqluser");
-	static Object mysqlpass = Overwatchmain.config.getProperty("mysqlpass");
+	protected static Object mysqldb = Overwatchmain.config.getProperty("mysqldb");
+	protected static Object mysqluser = Overwatchmain.config.getProperty("mysqluser");
+	protected static Object mysqlpass = Overwatchmain.config.getProperty("mysqlpass");
 	public static Connection conn = null;
 
 	public void openSQLConnection()
@@ -58,10 +58,6 @@ public class Overwatchmain extends JavaPlugin
 			{
 				Class.forName("com.mysql.jdbc.Driver");
 				conn = DriverManager.getConnection(mysqldb.toString(),mysqluser.toString(),mysqlpass.toString());
-				if (conn == null)
-				{
-					openSQLConnection();
-				}
 			}
 			catch (ClassNotFoundException e) 
 			{

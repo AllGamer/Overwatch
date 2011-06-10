@@ -30,7 +30,9 @@ public class MySQLConnection
 	private File folder;
 	private final static Logger log = Logger.getLogger("Minecraft");
 	private static String logPrefix;
-	private static Connection connect = Overwatchmain.conn;
+	public static Connection connect = Overwatchmain.conn;
+	public static Statement st = null;
+	public static ResultSet rs = null;
 
 	@SuppressWarnings("static-access")
 	public MySQLConnection()
@@ -139,7 +141,6 @@ public class MySQLConnection
 
 	public static boolean sqlUpdate(String sql) 
 	{
-		Statement st = null;
 		try 
 		{
 			st = connect.createStatement();
@@ -150,24 +151,10 @@ public class MySQLConnection
 		{
 			return false;
 		}
-		finally 
-		{
-			try 
-			{
-				if (st != null) st.close();
-			}
-			catch (SQLException e) 
-			{
-				log.info(logPrefix + " Could not close DB Connections.");
-				return false;
-			}
-		}
 	}
 	
 	public static ResultSet sqlGet(String sql) 
 	{
-
-		Statement st = null;
 		try 
 		{
 			st = connect.createStatement();
@@ -178,23 +165,10 @@ public class MySQLConnection
 		{
 			return null;
 		}
-		finally 
-		{
-			try 
-			{
-				if (st != null) st.close();
-			}
-			catch (SQLException e) 
-			{
-				log.info(logPrefix + " Could not close DB Connections.");
-				return null;
-			}
-		}
 	}
 
 	private static boolean tableExists(String table) 
 	{
-		ResultSet rs = null;
 		try 
 		{
 			DatabaseMetaData dbm = connect.getMetaData();
@@ -211,11 +185,12 @@ public class MySQLConnection
 		{
 			try 
 			{
-				if (rs != null) rs.close();
+				if (st != null) st.close();
 			}
-			catch (SQLException ex) 
+			catch (SQLException e) 
 			{
-				log.info(logPrefix + " Table Check SQL Exception (on closing)");
+				log.info(logPrefix + " Could not create the table (on close)");
+				return false;
 			}
 		}
 	}
