@@ -16,7 +16,26 @@ public class DBCache extends Thread
 		Overwatchmain.config.load();
 		try 
 		{
-			MySQLConnection.sqlUpdate("BULK INSERT INTO " + Overwatchmain.dbdata.toString());
+			for (String s : Overwatchmain.dbdataBlock)
+			{
+				MySQLConnection.sqlUpdate(s);
+			}
+			for (String s : Overwatchmain.dbdataChat)
+			{
+				MySQLConnection.sqlUpdate(s);
+			}
+			for (String s : Overwatchmain.dbdataCmd)
+			{
+				MySQLConnection.sqlUpdate(s);
+			}
+			for (String s : Overwatchmain.dbdataLogin)
+			{
+				MySQLConnection.sqlUpdate(s);
+			}
+			for (String s : Overwatchmain.dbdataPlayer)
+			{
+				MySQLConnection.sqlUpdate(s);
+			}
 			MySQLConnection.st.close();
 		} 
 		catch (SQLException e) 

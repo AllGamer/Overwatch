@@ -1,8 +1,10 @@
 package net.CraftRepo.Overwatch;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
@@ -23,11 +25,40 @@ import org.bukkit.event.block.SignChangeEvent;
  */
 public class OverwatchBlockListener extends BlockListener 
 {
-	@Override
+	public String tableName = "ow_block";
+	private final Overwatchmain plugin;
+
+	public OverwatchBlockListener(final Overwatchmain plugin)
+	{
+		this.plugin = plugin;
+	}
+	
 	public void onBlockBreak(BlockBreakEvent event) 
 	{
-		// TODO Auto-generated method stub
-		super.onBlockBreak(event);
+		try
+		{
+			Block block = event.getBlock();
+			Player player = event.getPlayer();
+			ResultSet playerID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE"
+			+ "`player` = '" + player.getName() + "';");
+			
+			Overwatchmain.dbdataBlock.add("INSERT INTO "
+			+ tableName 
+			+ " VALUES (`item_id` = '" + block.getTypeId() 
+			+ "', `data` = '" + block.getData()
+			+ "', `user_id` = '" + playerID.getString("player") 
+			+ "', `action` = 'broke', `x` = '" + block.getX() 
+			+ "', `y` = '" + block.getY() 
+			+ "', `z` = '" + block.getZ() 
+			+ "');");
+			
+			MySQLConnection.st.close();
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -98,13 +129,6 @@ public class OverwatchBlockListener extends BlockListener
 	{
 		// TODO Auto-generated method stub
 		super.onSignChange(event);
-	}
-
-	private final Overwatchmain plugin;
-
-	public OverwatchBlockListener(final Overwatchmain plugin)
-	{
-		this.plugin = plugin;
 	}
 
 	// put all Block related code here
