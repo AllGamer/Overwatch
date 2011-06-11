@@ -69,7 +69,7 @@ public class MySQLConnection
 		+ "`item_id`    int, "
 		+ "`data`       tinyint, "
 		+ "`user_id`    int, -- 0 == Environment, "
-		+ "`action`     ENUM('placed', 'broke', 'flowed', 'dropped') -- These map internally to 0,1,2,3, "
+		+ "`action`     ENUM('placed', 'broke', 'flowed', 'dropped', 'burned', 'changed') -- These map internally to 0,1,2,3,4,5, "
 		+ "`date`       datetime,"
 		+ "`x`          int unsigned, "
 		+ "`y`          int unsigned, "

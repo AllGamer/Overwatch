@@ -26,11 +26,15 @@ public class OverwatchInventoryListener extends PlayerListener
     {
         plugin = instance;
     }
-    @Override
+    
+    public void onInventoryChange(PlayerInventoryEvent event)
+    {
+    	
+    }
+    
 	public void onInventoryOpen(PlayerInventoryEvent event) 
     {
-		// TODO Auto-generated method stub
-		super.onInventoryOpen(event);
+		
 	}
     
 	@Override

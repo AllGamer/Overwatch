@@ -38,22 +38,25 @@ public class OverwatchBlockListener extends BlockListener
 		this.plugin = plugin;
 	}
 	
-	public void onBlockBreak(BlockBreakEvent event) 
+	/**
+	 * @param block The block for the current event.
+	 * @param player The player (event.getPlayer().getName()) that caused the event environment == creeper or burned block due to fire spread.
+	 * @param action The action that occured in the event. 0 is placed, 1 is broke, 2 is flowed, 3 is dropped, 4 is burned, 5 is changed.
+	 * @return True if successful; False if failed to query the db for player name. 
+	 */
+	public boolean MySQLadd(Block block, String player, Integer action)
 	{
 		try
-		{
-			Block block = event.getBlock();
-			Player player = event.getPlayer();
-			
+		{	
 			ResultSet playerID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE"
-			+ "`player` = '" + player.getName() + "';");
+			+ "`player` = '" + player + "';");
 			
 			Overwatchmain.dbdataBlock.add("INSERT INTO "
 			+ tableName 
 			+ " VALUES (`item_id` = '" + block.getTypeId() 
 			+ "', `data` = '" + block.getData()
 			+ "', `user_id` = '" + playerID.getString("player") 
-			+ "', `action` = '1"
+			+ "', `action` = '" + action
 			+ "', `date` = '" + Overwatchmain.getTime() 
 			+ "',`x` = '" + block.getX() 
 			+ "', `y` = '" + block.getY() 
@@ -66,35 +69,19 @@ public class OverwatchBlockListener extends BlockListener
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+		return true;
+	}
+	
+	public void onBlockBreak(BlockBreakEvent event) 
+	{
+		MySQLadd(event.getBlock(), event.getPlayer().getName(), 1);
 	}
 
-	@Override
 	public void onBlockBurn(BlockBurnEvent event)
 	{
-		// TODO Auto-generated method stub
-		super.onBlockBurn(event);
-	}
-
-	@Override
-	public void onBlockCanBuild(BlockCanBuildEvent event)
-	{
-		// TODO Auto-generated method stub
-		super.onBlockCanBuild(event);
-	}
-
-	@Override
-	public void onBlockDamage(BlockDamageEvent event) 
-	{
-		// TODO Auto-generated method stub
-		super.onBlockDamage(event);
-	}
-
-	@Override
-	public void onBlockFromTo(BlockFromToEvent event) 
-	{
-		// TODO Auto-generated method stub
-		super.onBlockFromTo(event);
+		MySQLadd(event.getBlock(), "Enviornment", 4);
 	}
 
 	@Override
