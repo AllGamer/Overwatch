@@ -17,34 +17,39 @@ public class DBCache implements Runnable
 				{
 					MySQLConnection.sqlUpdate(s);
 				}
+				Overwatchmain.dbdataBlock.clear();
 			}
-			if (Overwatchmain.dbdataBlock != null)
+			if (Overwatchmain.dbdataChat != null)
 			{
 				for (String s : Overwatchmain.dbdataChat)
 				{
 					MySQLConnection.sqlUpdate(s);
 				}
+				Overwatchmain.dbdataChat.clear();
 			}
-			if (Overwatchmain.dbdataBlock != null)
+			if (Overwatchmain.dbdataCmd != null)
 			{
 				for (String s : Overwatchmain.dbdataCmd)
 				{
 					MySQLConnection.sqlUpdate(s);
 				}
+				Overwatchmain.dbdataCmd.clear();
 			}
-			if (Overwatchmain.dbdataBlock != null)
+			if (Overwatchmain.dbdataLogin != null)
 			{
 				for (String s : Overwatchmain.dbdataLogin)
 				{
 					MySQLConnection.sqlUpdate(s);
 				}
+				Overwatchmain.dbdataLogin.clear();
 			}
-			if (Overwatchmain.dbdataBlock != null)
+			if (Overwatchmain.dbdataPlayer != null)
 			{
 				for (String s : Overwatchmain.dbdataPlayer)
 				{
 					MySQLConnection.sqlUpdate(s);
 				}
+				Overwatchmain.dbdataPlayer.clear();
 			}
 			MySQLConnection.st.close();
 		} 
