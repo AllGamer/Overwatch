@@ -4,13 +4,7 @@ import java.sql.SQLException;
 
 public class DBCache implements Runnable 
 {
-	private Overwatchmain OverwatchPlugin = null;
 	public Integer id;
-
-	public DBCache(Overwatchmain Overwatch)
-	{
-		this.OverwatchPlugin = Overwatch;
-	}
 
 	public void run()
 	{

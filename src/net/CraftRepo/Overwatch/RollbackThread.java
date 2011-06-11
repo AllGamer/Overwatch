@@ -7,17 +7,24 @@ import org.bukkit.entity.Player;
 
 public class RollbackThread extends Thread 
 {
-	private Overwatchmain OverwatchPlugin = null;
 	private String target;
 	private int rollbackID;
 	private ResultSet result;
 	private Player sender;
+	private String time;
 
-	public RollbackThread(Overwatchmain Overwatch, String target, Player sender)
+	public RollbackThread(String target, Player sender)
 	{
-		this.OverwatchPlugin = Overwatch;
 		this.target = target;
 		this.sender = sender;
+	}
+	
+	/**
+	 * @param time the time to rollback
+	 */
+	public void setTime(String time)
+	{
+		this.time = time;
 	}
 	
 	public void run()
@@ -25,8 +32,16 @@ public class RollbackThread extends Thread
 		Overwatchmain.config.load();
 		try 
 		{
-			rollbackID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE 'player' = '" + target + "';").getInt("player");
-			result = MySQLConnection.sqlGet("SELECT * FROM ow_block WHERE 'user_id' = '" + rollbackID + "';");
+			if (time == null)
+			{
+				rollbackID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE 'player' = '" + target + "';").getInt("player");
+				result = MySQLConnection.sqlGet("SELECT * FROM ow_block WHERE 'user_id' = '" + rollbackID + "';");
+			}
+			else
+			{
+				rollbackID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE 'player' = '" + target + "';").getInt("player");
+				result = MySQLConnection.sqlGet("SELECT * FROM ow_block WHERE 'user_id' = '" + rollbackID + "';");
+			}
 		} 
 		catch (SQLException e) 
 		{
@@ -36,7 +51,7 @@ public class RollbackThread extends Thread
 			this.interrupt();
 		}
 		
-		// Add Code to rollback the blocks. When done, make sure to result.close() to close the resultset!
+		// Add Code to rollback the blocks. When done, make sure to result.close() to close the resultset and MySQLConnection.st.close() to close the statements!
 		
 	}
 }

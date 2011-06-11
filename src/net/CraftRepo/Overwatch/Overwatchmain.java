@@ -4,6 +4,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -243,7 +246,7 @@ public class Overwatchmain extends JavaPlugin
 
 	public void startThread()
 	{
-		DBCache thread = new DBCache(this);
+		DBCache thread = new DBCache();
 		thread.id=getServer().getScheduler().scheduleAsyncRepeatingTask(this, thread, 60L, 100L);
 	}
 	
@@ -282,6 +285,22 @@ public class Overwatchmain extends JavaPlugin
 		log.info(logPrefix + " version " + getDescription().getVersion() + " is disabled!");
 	}
 
+	public static String getTime()
+	{
+		String parsed = null;
+		try
+		{
+			Date date = new Date();
+			String dateString = date.toString();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			parsed = format.parse(dateString).toString();
+		}
+		catch (ParseException pe)
+		{
+		}
+		return parsed;
+	}
+	
 	public boolean isDebugging(final Player player) 
 	{
 		if (debugees.containsKey(player)) 

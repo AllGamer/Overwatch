@@ -2,6 +2,12 @@ package net.CraftRepo.Overwatch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -27,7 +33,6 @@ public class OverwatchBlockListener extends BlockListener
 {
 	public String tableName = "ow_block";
 	private final Overwatchmain plugin;
-
 	public OverwatchBlockListener(final Overwatchmain plugin)
 	{
 		this.plugin = plugin;
@@ -39,6 +44,7 @@ public class OverwatchBlockListener extends BlockListener
 		{
 			Block block = event.getBlock();
 			Player player = event.getPlayer();
+			
 			ResultSet playerID = MySQLConnection.sqlGet("SELECT * FROM ow_players WHERE"
 			+ "`player` = '" + player.getName() + "';");
 			
@@ -47,7 +53,9 @@ public class OverwatchBlockListener extends BlockListener
 			+ " VALUES (`item_id` = '" + block.getTypeId() 
 			+ "', `data` = '" + block.getData()
 			+ "', `user_id` = '" + playerID.getString("player") 
-			+ "', `action` = 'broke', `x` = '" + block.getX() 
+			+ "', `action` = '1"
+			+ "', `date` = '" + Overwatchmain.getTime() 
+			+ "',`x` = '" + block.getX() 
 			+ "', `y` = '" + block.getY() 
 			+ "', `z` = '" + block.getZ() 
 			+ "');");

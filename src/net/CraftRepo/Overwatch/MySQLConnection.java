@@ -67,12 +67,13 @@ public class MySQLConnection
 	private final static String BLOCK_TABLE = "CREATE TABLE `ow_block` "
 		+ "("
 		+ "`item_id`    int, "
-		+ "`data`		tinyint, "
+		+ "`data`       tinyint, "
 		+ "`user_id`    int, -- 0 == Environment, "
-		+ "`action`    ENUM('placed', 'broke', 'flowed', 'dropped') -- These map internally to 0,1,2,3, "
-		+ "`x`        int unsigned, "
-		+ "`y`        int unsigned, "
-		+ "`z`        int unsigned, "
+		+ "`action`     ENUM('placed', 'broke', 'flowed', 'dropped') -- These map internally to 0,1,2,3, "
+		+ "`date`       datetime,"
+		+ "`x`          int unsigned, "
+		+ "`y`          int unsigned, "
+		+ "`z`          int unsigned, "
 		+ "INDEX x_y_z_idx(`x`, `y`, `z`), "
 		+ ");";
 	

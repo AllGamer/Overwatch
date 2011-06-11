@@ -1,6 +1,5 @@
 package net.CraftRepo.Overwatch;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
@@ -20,6 +19,13 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
  */
 public class OverwatchInventoryListener extends PlayerListener 
 {
+	@SuppressWarnings("unused")
+	private final Overwatchmain plugin;
+
+    public OverwatchInventoryListener(Overwatchmain instance) 
+    {
+        plugin = instance;
+    }
     @Override
 	public void onInventoryOpen(PlayerInventoryEvent event) 
     {
@@ -68,14 +74,6 @@ public class OverwatchInventoryListener extends PlayerListener
 		// TODO Auto-generated method stub
 		super.onPlayerPickupItem(event);
 	}
-
-	private final Overwatchmain plugin;
-
-    public OverwatchInventoryListener(Overwatchmain instance) 
-    {
-        plugin = instance;
-    }
-
     //Insert Inventory related code here
 }
 
