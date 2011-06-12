@@ -72,7 +72,11 @@ public class RollbackThread extends Thread
 		}
 		try {
 			if(result.isLast())
-			{this.interrupt();}
+			{
+				result.close();
+				MySQLConnection.st.close();
+				this.interrupt();
+			}
 		} catch (SQLException e) {
 			sender.sendMessage(Overwatchmain.logPrefix + "Error rolling player " + target + ". See console for details.");
 			Overwatchmain.log.warning(Overwatchmain.logPrefix + " Error accessing the MySQL DB.");
