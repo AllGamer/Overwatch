@@ -27,7 +27,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>build</goal>
+              <goal>compile</goal>
             </goals>
           </execution>
         </executions>
@@ -43,7 +43,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>jar</goal>
+              <goal>package</goal>
             </goals>
           </execution>
         </executions>
