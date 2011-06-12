@@ -27,7 +27,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>compile</goal>
+              <goal>install</goal>
             </goals>
           </execution>
         </executions>
@@ -43,7 +43,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>package</goal>
+              <goal>install</goal>
             </goals>
           </execution>
         </executions>
