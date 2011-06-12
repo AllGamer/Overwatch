@@ -17,6 +17,7 @@
   	<developerConnection>scm:git:ssh://git@github.com/AllGamer/Overwatch.git</developerConnection>
   </scm>
   <build>
+    <finalName>Overwatch</finalName>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
     <defaultGoal>clean install</defaultGoal>
@@ -54,6 +55,19 @@
             </manifestSections>
           </archive>
         </configuration>
+        <extensions>false</extensions>
+        <inherited>false</inherited>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <descriptors>
+              <descriptor>src/assemble/assemble.xml</descriptor>
+            </descriptors>
+            <archive>
+              <manifestFile>src/assemble/META-INF/MANIFEST.MF</manifestFile>
+            </archive>
+          </configuration>
        </plugin>
     </plugins>
   </build>

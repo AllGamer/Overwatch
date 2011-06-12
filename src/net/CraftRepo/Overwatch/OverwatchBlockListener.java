@@ -2,20 +2,10 @@ package net.CraftRepo.Overwatch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockCanBuildEvent;
-import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
@@ -32,6 +22,7 @@ import org.bukkit.event.block.SignChangeEvent;
 public class OverwatchBlockListener extends BlockListener 
 {
 	public String tableName = "ow_block";
+	@SuppressWarnings("unused")
 	private final Overwatchmain plugin;
 	public OverwatchBlockListener(final Overwatchmain plugin)
 	{

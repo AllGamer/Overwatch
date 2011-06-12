@@ -1,6 +1,6 @@
 package net.CraftRepo.Overwatch;
 
-import org.bukkit.entity.Creeper;
+//import org.bukkit.entity.Creeper;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreeperPowerEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
@@ -21,6 +21,14 @@ import org.bukkit.event.painting.PaintingPlaceEvent;
  */
 public class OverwatchEntityListener extends EntityListener 
 {
+	@SuppressWarnings("unused")
+	private final Overwatchmain plugin;
+
+    public OverwatchEntityListener(final Overwatchmain plugin) 
+    {
+        this.plugin = plugin;
+    }
+    
     @Override
 	public void onCreatureSpawn(CreatureSpawnEvent event)
     {
@@ -104,13 +112,6 @@ public class OverwatchEntityListener extends EntityListener
 		// TODO Auto-generated method stub
 		super.onPigZap(event);
 	}
-
-	private final Overwatchmain plugin;
-
-    public OverwatchEntityListener(final Overwatchmain plugin) 
-    {
-        this.plugin = plugin;
-    }
 
     //put all Entity related code here
 }

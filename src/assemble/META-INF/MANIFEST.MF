@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+
+Maven-Version: Apache Maven 2.x
+
+Created-By: 1.6.0_20-b20 (Sun Microsystems Inc.)

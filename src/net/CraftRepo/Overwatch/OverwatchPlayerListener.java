@@ -27,6 +27,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
  * Handle events for all Player related events
  * @author CraftRepo
  */
+@SuppressWarnings("unused")
 public class OverwatchPlayerListener extends PlayerListener 
 {
 	private final Overwatchmain plugin;

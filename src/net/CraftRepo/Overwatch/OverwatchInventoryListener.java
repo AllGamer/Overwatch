@@ -1,8 +1,6 @@
 package net.CraftRepo.Overwatch;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEggThrowEvent;
@@ -10,16 +8,15 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInventoryEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
 /**
  * Handle events for all Inventory related events
  * @author CraftRepo
  */
+@SuppressWarnings("unused")
 public class OverwatchInventoryListener extends PlayerListener 
 {
-	@SuppressWarnings("unused")
 	private final Overwatchmain plugin;
 
     public OverwatchInventoryListener(Overwatchmain instance) 
@@ -42,20 +39,6 @@ public class OverwatchInventoryListener extends PlayerListener
 	{
 		// TODO Auto-generated method stub
 		super.onItemHeldChange(event);
-	}
-
-	@Override
-	public void onPlayerBucketEmpty(PlayerBucketEmptyEvent event) 
-	{
-		// TODO Auto-generated method stub
-		super.onPlayerBucketEmpty(event);
-	}
-
-	@Override
-	public void onPlayerBucketFill(PlayerBucketFillEvent event) 
-	{
-		// TODO Auto-generated method stub
-		super.onPlayerBucketFill(event);
 	}
 
 	@Override

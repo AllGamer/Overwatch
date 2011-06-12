@@ -9,6 +9,7 @@ public class RollbackThread extends Thread
 {
 	private String target;
 	private int rollbackID;
+	@SuppressWarnings("unused")
 	private ResultSet result;
 	private Player sender;
 	private String time;
