@@ -10,7 +10,6 @@ public class RollbackThread extends Thread
 {
 	private String target;
 	private int rollbackID;
-	@SuppressWarnings("unused")
 	private ResultSet result;
 	private Player sender;
 	private String time;
@@ -61,24 +60,30 @@ public class RollbackThread extends Thread
 				Block temp = sender.getWorld().getBlockAt(result.getInt("x"), result.getInt("y"), result.getInt("z"));
 				temp.setTypeIdAndData(result.getInt("item_id"), result.getByte("data"), false);
 				if(result.isLast())
+				{
 					break;
-			} catch (SQLException e) 
+				}
+			} 
+			catch (SQLException e) 
 			{
-				sender.sendMessage(Overwatchmain.logPrefix + "Error rolling player " + target + ". See console for details.");
+				sender.sendMessage(Overwatchmain.logPrefix + " Error rolling player " + target + ". See console for details.");
 				Overwatchmain.log.warning(Overwatchmain.logPrefix + " Error accessing the MySQL DB.");
 				e.printStackTrace();
 				this.interrupt();
 			}
 		}
-		try {
+		try 
+		{
 			if(result.isLast())
 			{
 				result.close();
 				MySQLConnection.st.close();
 				this.interrupt();
 			}
-		} catch (SQLException e) {
-			sender.sendMessage(Overwatchmain.logPrefix + "Error rolling player " + target + ". See console for details.");
+		}
+		catch (SQLException e) 
+		{
+			sender.sendMessage(Overwatchmain.logPrefix + " Error rolling player " + target + ". See console for details.");
 			Overwatchmain.log.warning(Overwatchmain.logPrefix + " Error accessing the MySQL DB.");
 			e.printStackTrace();
 			this.interrupt();
